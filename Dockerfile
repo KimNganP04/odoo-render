@@ -1,18 +1,10 @@
-FROM odoo:19.0
+FROM odoo:16
 
-USER root
+RUN echo "[options]\n\
+workers = 0\n\
+db_maxconn = 64\n\
+limit_memory_hard = 2684354560\n\
+limit_memory_soft = 2147483648\n\
+" > /etc/odoo/odoo.conf
 
-# Install envsubst to replace environment variables
-RUN apt-get update && apt-get install -y gettext-base && rm -rf /var/lib/apt/lists/*
-
-# Copy and process configuration file
-COPY ./odoo.conf /tmp/odoo.conf.template
-RUN cat /tmp/odoo.conf.template | envsubst > /etc/odoo/odoo.conf
-
-USER odoo
-
-EXPOSE 8069
-
-# OVERRIDE entrypoint và chỉ chạy Odoo trực tiếp
-ENTRYPOINT []
-CMD ["odoo", "--without-demo=all"]
+CMD ["odoo", "-c", "/etc/odoo/odoo.conf"]
