@@ -1,4 +1,4 @@
 FROM odoo:19.0
 
-# Dùng connection info từ Railway
-CMD odoo --without-demo=all --database=railway --db_host=nozomi.proxy.rlwy.net --db_user=postgres --db_password=FNjYmoehOOIHIOHHUtYGQcclCZCdjUNg --db_port=59954
+# Sửa đúng tên biến Railway
+CMD odoo --without-demo=all --database=$PGDATABASE --db_host=$PGHOST --db_user=$PGUSER --db_password=$PGPASSWORD --db_port=$PGPORT
