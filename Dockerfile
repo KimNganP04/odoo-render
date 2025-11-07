@@ -13,4 +13,5 @@ USER odoo
 
 EXPOSE 8069
 
+# CHỈ GIỮ LẠI --without-demo=all, XOÁ SQLITE CONFIG
 CMD ["odoo", "--without-demo=all"]
