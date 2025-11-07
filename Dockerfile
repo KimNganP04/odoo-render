@@ -13,5 +13,6 @@ USER odoo
 
 EXPOSE 8069
 
-# CHỈ GIỮ LẠI --without-demo=all, XOÁ SQLITE CONFIG
+# OVERRIDE entrypoint và chỉ chạy Odoo trực tiếp
+ENTRYPOINT []
 CMD ["odoo", "--without-demo=all"]
