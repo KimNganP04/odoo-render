@@ -1,8 +1,26 @@
 version: '3.8'
 services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: odoo
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   odoo:
-    image: odoo:19.0
-    command: >
-      sh -c "odoo --without-demo=all --database=sqlite:////tmp/odoo.db --dev=all"
+    build: .
+    depends_on:
+      - postgres
     ports:
       - "8069:8069"
+    environment:
+      - DB_PASSWORD=odoo
+    volumes:
+      - odoo_data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+
+volumes:
+  postgres_data:
+  odoo_data:
