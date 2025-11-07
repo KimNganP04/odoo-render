@@ -1,26 +1,8 @@
+version: '3.8'
 services:
   odoo:
-    image: odoo:19
-    container_name: odoo-19
+    image: odoo:19.0
+    command: >
+      sh -c "odoo --without-demo=all --database=sqlite:////tmp/odoo.db --dev=all"
     ports:
       - "8069:8069"
-    environment:
-      - HOST=${PGHOST}
-      - PORT=${PGPORT}
-      - USER=${PGUSER}
-      - PASSWORD=${PGPASSWORD}
-      - DB_NAME=${PGDATABASE}
-    volumes:
-      - odoo-data:/var/lib/odoo
-      - ./extra-addons:/mnt/extra-addons
-    command: >
-      odoo
-      --db_host=${PGHOST}
-      --db_port=${PGPORT}
-      --db_user=${PGUSER}
-      --db_password=${PGPASSWORD}
-      --db_name=${PGDATABASE}
-      -i base
-
-volumes:
-  odoo-data:
