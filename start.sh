@@ -2,9 +2,12 @@
 set -e
 
 echo "Waiting for PostgreSQL to be ready..."
-until PGPASSWORD=$PGPASSWORD psql -h "$PGHOST" -U "$PGUSER" -p "$PGPORT" -d postgres -c '\q'; do
+
+# Dùng nc (netcat) thay psql – có sẵn trong image
+until nc -z "$PGHOST" "$PGPORT"; do
+  echo "PostgreSQL is unavailable - sleeping"
   sleep 2
 done
 
-echo "Database ready! Starting Odoo..."
+echo "PostgreSQL is up - starting Odoo..."
 exec odoo -c /etc/odoo/odoo.conf
