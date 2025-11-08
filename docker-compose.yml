@@ -1,18 +1,17 @@
 version: '3.8'
 services:
   web:
-    image: odoo:19.0
+    build: .
     ports:
       - "8069:8069"
     environment:
-      - HOST=${PGHOST}
-      - PORT=${PGPORT}
-      - USER=${PGUSER}
-      - PASSWORD=${PGPASSWORD}
+      - PGHOST
+      - PGPORT
+      - PGUSER
+      - PGPASSWORD
+      - ODOO_ADMIN_PASSWD
     volumes:
       - odoo-web-data:/var/lib/odoo
-      - ./odoo.conf:/etc/odoo/odoo.conf
-    command: ["odoo", "-c", "/etc/odoo/odoo.conf"]
 
 volumes:
   odoo-web-data:
