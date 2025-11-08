@@ -1,14 +1,17 @@
 FROM odoo:19.0
 
-# Copy config
-COPY ./odoo.conf /etc/odoo/odoo.conf
+# Chuyển sang root để chmod
+USER root
 
-# Copy start script
+# Copy config + script
+COPY ./odoo.conf /etc/odoo/odoo.conf
 COPY ./start.sh /start.sh
+
+# Cấp quyền thực thi
 RUN chmod +x /start.sh
 
-# XÓA DÒNG NÀY:
-# VOLUME /var/lib/odoo   ← BỊ CẤM!
+# Quay lại user odoo (bảo mật)
+USER odoo
 
 EXPOSE 8069
 
