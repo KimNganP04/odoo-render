@@ -7,8 +7,8 @@ COPY ./odoo.conf /etc/odoo/odoo.conf
 COPY ./start.sh /start.sh
 RUN chmod +x /start.sh
 
-# Volume filestore
-VOLUME /var/lib/odoo
+# XÓA DÒNG NÀY:
+# VOLUME /var/lib/odoo   ← BỊ CẤM!
 
 EXPOSE 8069
 
